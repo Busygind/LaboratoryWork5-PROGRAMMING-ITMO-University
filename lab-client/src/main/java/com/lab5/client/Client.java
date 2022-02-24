@@ -27,10 +27,10 @@ public final class Client {
      * @throws IOException возникает при ошибке работы с файлом или его отсутствием в текущей директории
      */
     public static void main(String[] args) throws IOException {
-        String fileName = args[0];
-        File starting = new File(System.getProperty("user.dir")); // Get current user directory
-        File file = new File(starting, fileName); // Initialize file from cmd
-        //File file = new File("C:\\Users\\Дмитрий\\JavaProjects\\LaboratoryWork5\\lab5\\lab-client\\src\\main\\Dragons.xml");
+//        String fileName = args[0];
+//        File starting = new File(System.getProperty("user.dir")); // Get current user directory
+//        File file = new File(starting, fileName); // Initialize file from cmd
+        File file = new File("C:\\Users\\Дмитрий\\JavaProjects\\LaboratoryWork5\\lab5\\lab-client\\src\\main\\Dragons.xml");
         XMLReader reader = new XMLReader(); // Initialize parser
         CollectionOfDragons collection = new CollectionOfDragons(); // Initialize collection
         for (Dragon elem : reader.read(file)) {

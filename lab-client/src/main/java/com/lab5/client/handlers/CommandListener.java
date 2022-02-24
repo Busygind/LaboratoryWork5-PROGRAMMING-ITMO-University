@@ -176,11 +176,17 @@ public class CommandListener {
         try {
             File starting = new File(System.getProperty("user.dir")); // Get current user directory
             File file = new File(starting, filename); // Initialize file from cmd
-            System.out.println(file.getPath());
+//            System.out.println(file.getPath());
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
-                ArrayList<String> line = LineSplitter.smartSplit(sc.nextLine());
-                invokeMethod(getCommandName(line), getCommandArguments(line));
+                String nextLine = sc.nextLine();
+                if (!nextLine.equals("execute_script " + filename)) {
+                    ArrayList<String> line = LineSplitter.smartSplit(nextLine);
+                    invokeMethod(getCommandName(line), getCommandArguments(line));
+                } else {
+                    System.out.println("Ошибка выполнения. Скрипт вызывает сам себя.");
+                    break;
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файла с таким именем в текущей папке нет. Переместите файл и повторите попытку");
@@ -317,10 +323,8 @@ public class CommandListener {
             } else {
                 method.invoke(this, commandArgs.toArray());
             }
-        } catch (NullPointerException e) {
-            System.out.println("Команда не введена, попробуйте еще раз");
-        } catch (IllegalAccessException e) {
-            System.out.println("Такой команды не существует. Чтобы посмотреть список доступных команд, напишите help");
+        } catch (NullPointerException | IllegalAccessException e) {
+            System.out.println("Команда некорректна или пуста, попробуйте еще раз");
         } catch (InvocationTargetException e) {
             System.out.println("Имя не может быть пустым, попробуйте снова");
         }
