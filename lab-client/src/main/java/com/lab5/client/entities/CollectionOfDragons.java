@@ -99,11 +99,16 @@ public class CollectionOfDragons {
      * @param id id дракона, которого нужно удалить
      */
     public void removeById(long id) {
+        boolean idIsValid = false;
         for (Dragon dragon : dragons) {
             if (dragon.getId() == id) {
+                idIsValid = true;
                 dragons.remove(dragon);
-                System.out.println("Dragon succesfully removed");
+                System.out.println("Дракон успешно удален");
             }
+        }
+        if (!idIsValid) {
+            System.out.println("Дракона с таким id нет в коллекции");
         }
     }
 
