@@ -8,12 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Scanner;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 
 /**
@@ -193,6 +188,11 @@ public class CommandListener {
         }
     }
 
+    /**
+     * Метод, вызываемый командой <strong>exit</strong>
+     *
+     * @throws IOException может возникнуть при неполадках с сохранением данных в файл
+     */
     @Command(name = "exit",
             args = "",
             countOfArgs = 0,
@@ -207,6 +207,13 @@ public class CommandListener {
         System.exit(0);
     }
 
+    /**
+     * Метод, вызываемый командой <strong>add_if_max</strong>
+     *
+     * @param name имя дракона, которого пытается добавить пользователь
+     * @param age возраст дракона, которого пытается добавить пользователь
+     * @param wingspan размах крыльев дракона, которого пытается добавить пользователь
+     */
     @Command(name = "add_if_max",
             args = "{name, age, wingspan}",
             countOfArgs = Dragon.COUNT_OF_PRIMITIVE_ARGS,
@@ -226,6 +233,13 @@ public class CommandListener {
         }
     }
 
+    /**
+     * Метод, вызываемый командой <strong>add_if_min</strong>
+     *
+     * @param name имя дракона, которого пытается добавить пользователь
+     * @param age возраст дракона, которого пытается добавить пользователь
+     * @param wingspan размах крыльев дракона, которого пытается добавить пользователь
+     */
     @Command(name = "add_if_min",
             args = "{name, age, wingspan}",
             countOfArgs = Dragon.COUNT_OF_PRIMITIVE_ARGS,
@@ -245,6 +259,9 @@ public class CommandListener {
         }
     }
 
+    /**
+     * Метод, вызываемый командой <strong>history</strong>
+     */
     @Command(name = "history",
             args = "",
             countOfArgs = 0,
@@ -258,6 +275,9 @@ public class CommandListener {
         System.out.println(commandHistory);
     }
 
+    /**
+     * Метод, вызываемый командой <strong>max_by_cave</strong>
+     */
     @Command(name = "max_by_cave",
             args = "",
             countOfArgs = 0,
@@ -275,6 +295,9 @@ public class CommandListener {
         System.out.println("Данные о драконе с самой глубокой пещерой:\n" + dragonWithDeepestCave);
     }
 
+    /**
+     * Метод, вызываемый командой <strong>print_ascending</strong>
+     */
     @Command(name = "print_ascending",
             args = "",
             countOfArgs = 0,
@@ -286,6 +309,9 @@ public class CommandListener {
         System.out.println(dragons);
     }
 
+    /**
+     * Метод, вызываемый командой <strong>print_descending</strong>
+     */
     @Command(name = "print_descending",
             args = "",
             countOfArgs = 0,
@@ -302,8 +328,13 @@ public class CommandListener {
      */
     public void commandsReader() {
         while (true) { // цикл завершится только при вызове команды exit
-            ArrayList<String> line = readCommandFromSystemIn();
-            invokeMethod(getCommandName(line), getCommandArguments(line));
+            try {
+                ArrayList<String> line = readCommandFromSystemIn();
+                invokeMethod(getCommandName(line), getCommandArguments(line));
+            } catch (NoSuchElementException e) {
+                System.out.println("Введена команда прерывания работы приложения. Работа завершена");
+                System.exit(0);
+            }
         }
     }
 
