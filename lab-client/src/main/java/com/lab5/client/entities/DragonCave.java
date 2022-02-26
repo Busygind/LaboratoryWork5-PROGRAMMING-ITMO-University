@@ -14,18 +14,6 @@ public class DragonCave {
      */
     private int numberOfTreasures;
 
-    public DragonCave(double depth, int numberOfTreasures) {
-        if (numberOfTreasures <= 0) {
-            throw new IllegalArgumentException("Некорректное количество существ в пещере, попробуйте снова");
-        }
-        this.depth = depth;
-        this.numberOfTreasures = numberOfTreasures;
-    }
-
-    public DragonCave() {
-
-    }
-
     /**
      * Метод, устанавливающий объекту пещеры глубину
      *

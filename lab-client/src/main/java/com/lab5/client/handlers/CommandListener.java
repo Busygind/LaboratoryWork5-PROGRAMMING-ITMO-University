@@ -8,14 +8,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Collections;
+import java.util.NoSuchElementException;
 
 
 /**
  * Класс, содержащий методы, вызываемые напрямую после соответствующих команд пользователя,
  * а также методы по обработке полученных данных
- *
- * @author Dmitry Busygin
  */
 public class CommandListener {
 
@@ -37,6 +41,10 @@ public class CommandListener {
      */
     private CollectionOfDragons collection;
 
+    /**
+     * Конструктор объекта данного класса
+     * @param collection коллекция, с которой работает пользователь
+     */
     public CommandListener(CollectionOfDragons collection) {
         this.collection = collection;
         for (Method method : CommandListener.class.getDeclaredMethods()) {
@@ -47,6 +55,9 @@ public class CommandListener {
         }
     }
 
+    /**
+     * Метод, вызываемый командой <strong>help</strong>
+     */
     @Command(name = "help",
             args = "",
             countOfArgs = 0,
@@ -65,6 +76,9 @@ public class CommandListener {
         System.out.println(sb);
     }
 
+    /**
+     * Метод, вызываемый командой <strong>info</strong>
+     */
     @Command(name = "info",
             args = "",
             countOfArgs = 0,
@@ -75,6 +89,9 @@ public class CommandListener {
         collection.showInfo();
     }
 
+    /**
+     * Метод, вызываемый командой <strong>show</strong>
+     */
     @Command(name = "show",
             args = "",
             countOfArgs = 0,
@@ -84,6 +101,13 @@ public class CommandListener {
         System.out.println(collection.getDragons());
     }
 
+    /**
+     * Метод, вызываемый командой <strong>add</strong>
+     *
+     * @param dragonName имя дракона, которого добавляет пользователь
+     * @param age возраст дракона, которого добавляет пользователь
+     * @param wingspan размах крыльев дракона, которого добавляет пользователь
+     */
     @Command(name = "add",
             args = "{name age wingspan}",
             countOfArgs = Dragon.COUNT_OF_PRIMITIVE_ARGS,
@@ -107,6 +131,11 @@ public class CommandListener {
         collection.addDragon(dragon);
     }
 
+    /**
+     * Метод, вызываемый командой <strong>update</strong>
+     *
+     * @param id id дракона, данные о котором необходимо обновить
+     */
     @Command(name = "update",
             args = "{id}",
             countOfArgs = 1,
@@ -128,6 +157,11 @@ public class CommandListener {
         }
     }
 
+    /**
+     * Метод, вызываемый командой <strong>remove_by_id</strong>
+     *
+     * @param id id дракона, которого необходимо удалить из коллекции
+     */
     @Command(name = "remove_by_id",
             args = "{id}",
             countOfArgs = 1,
@@ -137,6 +171,9 @@ public class CommandListener {
         collection.removeById(Long.parseLong(id));
     }
 
+    /**
+     * Метод, вызываемый командой <strong>clear</strong>
+     */
     @Command(name = "clear",
             args = "",
             countOfArgs = 0,
@@ -151,7 +188,10 @@ public class CommandListener {
         }
     }
 
-    @Command(name = "save",
+     /**
+      * Метод, вызываемый командой <strong>save</strong>
+      */
+     @Command(name = "save",
             args = "",
             countOfArgs = 0,
             desc = "Сохранение коллекции в файл",
@@ -162,6 +202,11 @@ public class CommandListener {
         System.out.println("Коллекция успешно сохранена");
     }
 
+    /**
+     * Метод, вызываемый командой <strong>execute_script</strong>
+     *
+     * @param filename имя файла, скрипт из которого необходимо выполнить
+     */
     @Command(name = "execute_script",
             args = "{filename}",
             countOfArgs = 1,
@@ -175,7 +220,7 @@ public class CommandListener {
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String nextLine = sc.nextLine();
-                if (!nextLine.equals("execute_script " + filename)) {
+                if (!("execute_script " + filename).equals(nextLine)) {
                     ArrayList<String> line = LineSplitter.smartSplit(nextLine);
                     invokeMethod(getCommandName(line), getCommandArguments(line));
                 } else {
@@ -327,7 +372,7 @@ public class CommandListener {
      * Метод, циклически считывающий команды из консоли и вызывающий необходимые методы обработки коллекции
      */
     public void commandsReader() {
-        while (true) { // цикл завершится только при вызове команды exit
+        while (true) { // цикл завершится только при вызове команды exit или вводе ctrl+d
             try {
                 ArrayList<String> line = readCommandFromSystemIn();
                 invokeMethod(getCommandName(line), getCommandArguments(line));
@@ -357,7 +402,7 @@ public class CommandListener {
         } catch (NullPointerException | IllegalAccessException e) {
             System.out.println("Команда некорректна или пуста, попробуйте еще раз");
         } catch (InvocationTargetException e) {
-            System.out.println("Имя не может быть пустым, попробуйте снова");
+            System.out.println();
         }
     }
 

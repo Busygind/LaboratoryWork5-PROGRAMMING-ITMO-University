@@ -68,23 +68,9 @@ public class Dragon implements Comparable<Dragon> {
      */
     private DragonCave cave;
 
-
-    private Dragon(String name, Coordinates coordinates, int age, int wingspan, Color color, DragonCharacter character, DragonCave cave) {
-        try {
-            this.name = name;
-            this.coordinates = coordinates;
-            this.age = age;
-            this.wingspan = wingspan;
-            this.color = color;
-            this.character = character;
-            this.cave = cave;
-            this.creationDate = new Date();
-            setId();
-        } catch (IllegalArgumentException ex) {
-            System.out.println("Некорректные параметры дракона: " + ex.getMessage());
-        }
-    }
-
+    /**
+     * Конструктор объекта данного класса
+     */
     public Dragon() {
         this.creationDate = new Date();
     }

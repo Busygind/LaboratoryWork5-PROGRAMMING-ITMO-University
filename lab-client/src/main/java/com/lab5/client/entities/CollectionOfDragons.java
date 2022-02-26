@@ -27,13 +27,11 @@ public class CollectionOfDragons {
      */
     private HashSet<Dragon> dragons;
 
+    /**
+     * Конструктор объекта данного класса.
+     * Устанавливает коллекцию и дату её создания
+     */
     public CollectionOfDragons() {
-        dragons = new HashSet<>();
-        creationDate = new Date();
-    }
-
-    public CollectionOfDragons(File outFile) {
-        this.outFile = outFile;
         dragons = new HashSet<>();
         creationDate = new Date();
     }

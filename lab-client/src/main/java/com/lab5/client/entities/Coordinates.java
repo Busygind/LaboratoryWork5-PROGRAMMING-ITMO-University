@@ -18,15 +18,6 @@ public class Coordinates {
      */
     private float y;
 
-    public Coordinates(Integer x, float y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public Coordinates() {
-
-    }
-
     /**
      * Метод, устанавливающий значение координаты Х в соответствии с ограничивающими условиями
      *

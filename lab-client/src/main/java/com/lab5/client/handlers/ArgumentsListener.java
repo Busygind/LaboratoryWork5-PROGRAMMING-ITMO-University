@@ -14,11 +14,6 @@ import java.util.Scanner;
  * ввода данных о новом элементе коллекции
  */
 public class ArgumentsListener {
-
-    public ArgumentsListener() {
-
-    }
-
     /**
      * Метод обработки и инициализации данных примитивных типов для переданного
      * в аргументе дракона
