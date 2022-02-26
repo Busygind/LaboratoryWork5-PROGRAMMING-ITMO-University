@@ -2,7 +2,7 @@
 ## Выполнил Бусыгин Дмитрий, Университет ИТМО, программная инженерия
 Цель работы: создать расширяемое консольное приложение для обработки коллекции объектов, чтение и запись которых осуществляется с помощью xml-файла. с подробным заданием можно ознакомиться на [se.ifmo](https://se.ifmo.ru/courses/programming#labs). 
 
-Описание исходного кода в формате **javadoc**: [открыть](file:///C:/Users/Дмитрий/Desktop/study/Программирование/Lab5/javadoc/allpackages-index.html)
+Описание исходного кода в формате **javadoc**: [открыть](https://github.com/Busygind/LaboratoryWork5-PROGRAMMING-ITMO-University/tree/master/doc/javadoc.zip)
 
 Сборка проекта осуществлена с помощью: **Maven**
 
