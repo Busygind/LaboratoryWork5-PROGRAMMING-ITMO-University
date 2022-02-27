@@ -35,6 +35,7 @@ public class XMLReader {
         while (sc.hasNextLine()) {
             xmlText.append(sc.nextLine());
         }
+        reader.close();
         CollectionOfDragons dragons = (CollectionOfDragons) xStream.fromXML(xmlText.toString());
         return dragons.getDragons();
     }

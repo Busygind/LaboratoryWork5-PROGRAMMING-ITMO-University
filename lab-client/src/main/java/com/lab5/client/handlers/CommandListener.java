@@ -216,7 +216,6 @@ public class CommandListener {
         try {
             File starting = new File(System.getProperty("user.dir")); // Get current user directory
             File file = new File(starting, filename); // Initialize file from cmd
-//            System.out.println(file.getPath());
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String nextLine = sc.nextLine();
